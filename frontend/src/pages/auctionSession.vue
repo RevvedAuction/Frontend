@@ -1,11 +1,10 @@
-
 <template>
-  <router-view></router-view>
+    <h1>Auction Session!</h1>
 </template>
 
 <script>
 export default {
-  name: 'App',
+  name: 'AuctionSession',
   components: {},
 }
 </script>

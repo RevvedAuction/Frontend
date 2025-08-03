@@ -1,11 +1,10 @@
-
 <template>
-  <router-view></router-view>
+    <h1>Product Page!!</h1>
 </template>
 
 <script>
 export default {
-  name: 'App',
+  name: 'productPage',
   components: {},
 }
 </script>
