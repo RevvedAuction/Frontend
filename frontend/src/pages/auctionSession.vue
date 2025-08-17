@@ -1,10 +1,11 @@
 <template>
-    <h1>Auction Session!</h1>
+  <div>
+    <h1>Auction Session Page!</h1>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'AuctionSession',
-  components: {},
 }
 </script>
