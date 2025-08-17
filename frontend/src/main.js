@@ -17,6 +17,10 @@ createApp(App)
     , {
         path: '/welcome',
         component: () => import('./pages/welcomepage.vue')
+    }
+    , {
+        path: '/login',
+        component: () => import('./pages/loginpage.vue')
     }]
 }))
 .mount('#app')

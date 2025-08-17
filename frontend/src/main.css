@@ -79,6 +79,19 @@
   font-weight: bold;
 }
 
+.nav-menu li a {
+  font-family: 'Bodoni Moda SC', serif;
+  color: white;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-menu li a:hover {
+  color: #b99976;
+  font-weight: bold;
+}
+
 /* Features section centered */
 .features {
   flex: 1;
@@ -117,3 +130,5 @@ html, body, #app {
   margin: 0;
   padding: 0;
 }
+
+

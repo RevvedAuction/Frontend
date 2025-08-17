@@ -1,10 +1,11 @@
 <template>
-    <h1>Product Page!!</h1>
+  <div>
+    <h1>Product Page!</h1>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'productPage',
-  components: {},
+  name: 'ProductPage',
 }
 </script>
