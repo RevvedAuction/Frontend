@@ -4,7 +4,7 @@
 
       <div class="top-bar">
         <header class="header">
-          <h1 @click="goTo('home')">REV AUCTION</h1>
+          <h1 @click="goTo('home')">REVVED AUCTION</h1>
         </header>
 
         <nav class="nav-menu">
@@ -12,7 +12,7 @@
                 <li>HOME</li>
                 <li>AUCTION</li>
                 <li>CONTACT</li>
-                 <li>LOGIN</li>
+                 <li><a href="http://localhost:8080/login">LOGIN</a></li>
             </ul>
         </nav>
       </div>

@@ -1,4 +1,6 @@
 <template>
+  <div>
+    <h1>Product Page!</h1>
   <div class="product-page">
     <h1>Available Cars for Auction</h1>
 
@@ -28,6 +30,9 @@
 import axios from "axios";
 
 export default {
+  name: 'ProductPage',
+}
+</script>
   name: "productPage",
   data() {
     return {
