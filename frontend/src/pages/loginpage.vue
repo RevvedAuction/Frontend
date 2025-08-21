@@ -11,7 +11,7 @@
                 <input type="text" placeholder="Name">
                 <input type="email" placeholder="Email">
                 <input type="password" placeholder="Password">
-                <button type="button" @click="toggleActive">Sign Up</button>
+                <button class = "sign-up-button" type="button">Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in">
@@ -20,7 +20,7 @@
                 <input type="email" placeholder="Email">
                 <input type="password" placeholder="Password">
                 <a href="#">Forget Your Password?</a>
-                <button type="button" @click="toggleActive">Sign In</button>
+                <button class = "sign-in-button" type="button">Sign In</button>
             </form>
         </div>
         <div class="toggle-container">
@@ -34,7 +34,7 @@
                     <h1 class="toggle-title">Hey, New Comer!</h1>
                     <p>Welcome to Revved Auction. The place where you can find your dream car!</p>
                     <span>Already a member? Please sign in:</span>
-                    <button type="button" @click="toggleActive">Sign In</button>
+                    <button class = "sign-in-button" type="button" @click="toggleActive">Sign In</button>
                 </div>
 
                 <div class="toggle-panel toggle-right">
@@ -46,7 +46,7 @@
                     <h1 class="toggle-title">Welcome Back!</h1>
                     <p>So glad to have you back. We have cars to auction and more features for you!</p>
                     <span>Are you new? Please create an account:</span>
-                    <button type="button" @click="toggleActive">Sign Up</button>
+                    <button class = "sign-up-button" type="button" @click="toggleActive">Sign Up</button>
                 </div>
             </div>
         </div>
@@ -211,6 +211,48 @@ export default {
     z-index: 1;
 }
 
+.sign-in-button{
+    background-color: #b99976;
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.sign-in-button:hover {
+    background-color: #000000;
+    color: #b99976;
+    border-color: #b99976;
+}
+
+.sign-up-button{
+    background-color: #b99976;
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.sign-up-button:hover {
+    background-color: #000000;
+    color: #b99976;
+    border-color: #b99976;
+}
+
 .container.active .sign-up{
     transform: translateX(100%);
     opacity: 1;
@@ -250,8 +292,8 @@ export default {
     background-color: #b99976;
     height: 100%;
     background: 
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('@/assets/homepage_image.png');
+    linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url('@/assets/sign_up_sign_in.jpg');
     background-size: cover;
     color: #fff;
     position: relative;
@@ -267,7 +309,6 @@ export default {
 }
 
 .toggle-title{
-   font-family: 'Bodoni Moda SC', serif;
     font-size: 60px;
     font-weight: 600;
     margin-bottom: 20px;
@@ -328,7 +369,6 @@ export default {
 }
 
 .toggle-left p{
-    font-family: 'Bodoni Moda SC', serif;
     font-size: 20px;
     margin-bottom: 60px;
 }
@@ -343,7 +383,6 @@ export default {
 }
 
 .toggle-right .toggle-title{
-   font-family: 'Bodoni Moda SC', serif;
     font-size: 60px;
     font-weight: 600;
     margin-bottom: 20px;
@@ -390,7 +429,6 @@ export default {
 }
 
 .toggle-right p{
-    font-family: 'Bodoni Moda SC', serif;
     font-size: 20px;
     margin-bottom: 60px;
 }
