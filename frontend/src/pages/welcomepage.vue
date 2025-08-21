@@ -9,8 +9,8 @@
 
         <nav class="nav-menu">
             <ul>
-                <li>HOME</li>
-                <li>AUCTION</li>
+                <li><a href="http://localhost:8080/product">PRODUCTS</a></li>
+                <li><a href="http://localhost:8080/session">AUCTION</a></li>
                 <li>CONTACT</li>
                  <li><a href="http://localhost:8080/login">LOGIN</a></li>
             </ul>
