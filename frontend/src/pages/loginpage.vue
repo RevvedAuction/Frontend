@@ -2,9 +2,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
   <div class="login-background">
-    <div class="home-button">
-        <a href="http://localhost:8080/welcome">REVVED AUCTION</a>
-    </div>
+    
   <div class="container" :class="{ active: isActive }" ref="container">
         <div class="form-container sign-up">
             
@@ -13,8 +11,7 @@
                 <input type="text" placeholder="Name">
                 <input type="email" placeholder="Email">
                 <input type="password" placeholder="Password">
-                <span>Already a member? Please sign in:</span>
-                <button type="button" @click="toggleActive">Sign In</button>
+                <button type="button" @click="toggleActive">Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in">
@@ -23,19 +20,33 @@
                 <input type="email" placeholder="Email">
                 <input type="password" placeholder="Password">
                 <a href="#">Forget Your Password?</a>
-                <span>Are you new? Please create an account:</span>
-                <button type="button" @click="toggleActive">Sign Up</button>
+                <button type="button" @click="toggleActive">Sign In</button>
             </form>
         </div>
         <div class="toggle-container">
             <div class="toggle">
                 <div class="toggle-panel toggle-left">
+
+                    <div class="home-button-left">
+                        <a href="http://localhost:8080/welcome">REVVED AUCTION</a>
+                    </div>
+
                     <h1 class="toggle-title">Hey, New Comer!</h1>
                     <p>Welcome to Revved Auction. The place where you can find your dream car!</p>
+                    <span>Already a member? Please sign in:</span>
+                    <button type="button" @click="toggleActive">Sign In</button>
                 </div>
+
                 <div class="toggle-panel toggle-right">
+
+                    <div class="home-button-right">
+                        <a href="http://localhost:8080/welcome">REVVED AUCTION</a>
+                    </div>
+
                     <h1 class="toggle-title">Welcome Back!</h1>
                     <p>So glad to have you back. We have cars to auction and more features for you!</p>
+                    <span>Are you new? Please create an account:</span>
+                    <button type="button" @click="toggleActive">Sign Up</button>
                 </div>
             </div>
         </div>
@@ -70,41 +81,6 @@ export default {
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
-}
-
-.home-button {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 9999;
-  padding: 8px 12px;
-}
-
-.home-button a {
- font-family: 'Bodoni Moda SC', serif;
-  color: #000000;
-  font-size: 2.5rem;
-  margin: 0;
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.home-button a:after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 30%;
-  height: 3px;
-  background-color: #000000;
-  transition: width 0.3s ease;
-}
-
-.home-button a:hover::after {
-  width: 100%;
 }
 
 .login-top-bar {
@@ -316,10 +292,50 @@ export default {
     transform: translateX(-200%);
 }
 
+.toggle-left .home-button-left {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    padding: 8px 12px;
+}
+
+.home-button-left a {
+    font-family: 'Bodoni Moda SC', serif;
+    color: #b99976;
+    font-size: 2.5rem;
+    margin: 0;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.home-button-left a:after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
+    height: 3px;
+    background-color: #b99976;
+    transition: width 0.3s ease;
+}
+
+.home-button-left a:hover::after {
+    width: 100%;
+}
+
 .toggle-left p{
     font-family: 'Bodoni Moda SC', serif;
     font-size: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
+}
+
+.toggle-left span{
+    font-size: 15px;
+    margin-bottom: 10px;
 }
 
 .container.active .toggle-left{
@@ -338,10 +354,50 @@ export default {
     transform: translateX(0);
 }
 
+.toggle-right .home-button-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    padding: 8px 12px;
+}
+
+.home-button-right a {
+    font-family: 'Bodoni Moda SC', serif;
+    color: #b99976;
+    font-size: 2.5rem;
+    margin: 0;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.home-button-right a:after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
+    height: 3px;
+    background-color: #b99976;
+    transition: width 0.3s ease;
+}
+
+.home-button-right a:hover::after {
+    width: 100%;
+}
+
 .toggle-right p{
     font-family: 'Bodoni Moda SC', serif;
     font-size: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
+}
+
+.toggle-right span{
+    font-size: 15px;
+    margin-bottom: 10px;
 }
 
 .container.active .toggle-right{
