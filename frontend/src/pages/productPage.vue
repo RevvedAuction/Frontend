@@ -1,37 +1,40 @@
 <template>
   <div>
     <h1>Product Page!</h1>
-    <div class="product-page">
-      <h1>Available Cars for Auction</h1>
+  <div class="product-page">
+    <h1>Available Cars for Auction</h1>
 
-      <div v-if="cars.length === 0" class="empty-message">
-        🚗 No cars currently available for auction
-      </div>
-
-      <div class="car-list">
-        <div v-for="car in cars" :key="car.carVIN" class="car-card">
-          <img
-            :src="car.media"
-            alt="Car Image"
-            class="car-image"
-          />
-          <h2>{{ car.carMake }} {{ car.carModel }} ({{ car.carYear }})</h2>
-          <p>Mileage: {{ car.carMileage.toLocaleString() }} km</p>
-          <p>Status: {{ car.carStatus }}</p>
-          <p class="countdown">
-            Time left: {{ formatCountdown(car.remainingTime) }}
-          </p>
-        </div>
-      </div>
+    <div v-if="cars.length === 0" class="empty-message">
+      🚗 No cars currently available for auction
     </div>
+
+    <!-- <div class="car-list">
+      <div v-for="car in cars" :key="car.carVIN" class="car-card">
+        <img
+          :src="car.media"
+          alt="Car Image"
+          class="car-image"
+        />
+        <h2>{{ car.carMake }} {{ car.carModel }} ({{ car.carYear }})</h2>
+        <p>Mileage: {{ car.carMileage.toLocaleString() }} km</p>
+        <p>Status: {{ car.carStatus }}</p>
+        <p class="countdown">
+          Time left: {{ formatCountdown(car.remainingTime) }}
+        </p>
+      </div>
+    </div> -->
   </div>
+</div>
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 
 export default {
-  name: "ProductPage",
+  name: 'ProductPage',
+}
+{/* <script>
+  name: "productPage",
   data() {
     return {
       cars: [],
@@ -72,5 +75,5 @@ export default {
   beforeUnmount() {
     clearInterval(this.timer);
   }
-};
+}; */}
 </script>

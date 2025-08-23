@@ -1,3 +1,8 @@
+<!-- 
+author: Caitlin Malan
+student: 230426271 
+-->
+
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
@@ -6,21 +11,71 @@
   <div class="container" :class="{ active: isActive }" ref="container">
         <div class="form-container sign-up">
             
-            <form>
+        
+            <form @submit.prevent="onSignUp()">
                 <h1 class="form-title">Create Account</h1>
-                <input type="text" placeholder="Name">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
-                <button class = "sign-up-button" type="button">Sign Up</button>
+
+                    <div class="error-message" v-if="errorMessage">
+                        {{ errorMessage }}
+                    </div>
+
+                <input type="text" placeholder="Full Name" v-model="signupFullName">
+
+                <input type="email" placeholder="Email" v-model="signupEmail">
+
+                    <div class="error" v-if="signUpErrors.email">
+                        {{ signUpErrors.email }}
+                    </div> 
+
+                <input :type="showSignupPassword ? 'text' : 'password'" placeholder="Password" v-model="signupPassword">
+                
+
+                    <div class="error" v-if="signUpErrors.password">
+                        {{ signUpErrors.password }}
+                    </div>
+
+                <i 
+                    class="fa-solid fa-eye" 
+                    :class="{ active: showSignupPassword }" 
+                    @click="showSignupPassword = !showSignupPassword"
+                >
+                </i>
+
+                <button class = "sign-up-button" type="submit" @click="onSignUp" >Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in">
-            <form>
-                <h1 class="form-title">Sign In</h1>
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
+
+            <form @submit.prevent="onLogin()">
+                <h1 class="form-title">Login</h1>
+
+                    <div class="error-message" v-if="errorMessage">
+                        {{ errorMessage }}
+                    </div>
+
+                <input type="email" placeholder="Email" v-model.trim="loginEmail">
+
+                    <div class="error" v-if="loginErrors.email">
+                        {{ loginErrors.email }}
+                    </div> 
+
+                <input :type="showLoginPassword ? 'text' : 'password'" placeholder="Password" v-model.trim="loginPassword">
+                
+
+                    <div class="error" v-if="loginErrors.password">
+                        {{ loginErrors.password }}
+                    </div>
+                
+                <i
+                    class="fa-solid fa-eye" 
+                    :class="{ active: showLoginPassword }" 
+                    @click="showLoginPassword = !showLoginPassword"
+                >
+                </i>
+
                 <a href="#">Forget Your Password?</a>
-                <button class = "sign-in-button" type="button">Sign In</button>
+                <button class = "sign-in-button" type="button" @click="onLogin">Login</button>
+
             </form>
         </div>
         <div class="toggle-container">
@@ -33,8 +88,8 @@
 
                     <h1 class="toggle-title">Hey, New Comer!</h1>
                     <p>Welcome to Revved Auction. The place where you can find your dream car!</p>
-                    <span>Already a member? Please sign in:</span>
-                    <button class = "sign-in-button" type="button" @click="toggleActive">Sign In</button>
+                    <span>Already a member? Please login:</span>
+                    <button class = "sign-in-button" type="button" @click="toggleActive">Login</button>
                 </div>
 
                 <div class="toggle-panel toggle-right">
@@ -51,16 +106,105 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
 </template>
 
+<!-- Script for AccountSetUpPage -->
 <script>
+import AccountValidations from '../services/AccountValidations';
 import { ref } from 'vue';
+import { mapActions, mapMutations } from 'vuex';
+import {
+    LOADING_SPINNER_SHOW_MUTATION,
+    SIGNUP_ACTION,
+    LOGIN_ACTION,
+} from '../store/storeconstants';
 
-export default {
-  name: 'LoginPage',
-  setup() {
-    const isActive = ref(false);
+
+export default  {
+    data(){
+        return {
+            // Sign-In data form
+            loginFullName: '',
+            loginEmail: '',
+            loginPassword: '',
+            
+            // Sign-Up data form
+            signupFullName: '',
+            signupEmail: '',
+            signupPassword: '',
+
+            // Error messages
+            loginErrors: {},
+            signUpErrors: {},
+
+            errorMessage: '',
+
+            // Showing Password to User
+            showLoginPassword: false,
+            showSignupPassword: false
+        }
+    },
+    methods: {
+         ...mapActions('auth', {
+            signup: SIGNUP_ACTION,
+            login: LOGIN_ACTION,
+        }),
+
+        ...mapMutations({
+            showLoading: LOADING_SPINNER_SHOW_MUTATION,
+        }),
+
+        // Function to handle login
+        async onLogin() {
+            let loginValidations = new AccountValidations(this.loginEmail, this.loginPassword);
+
+            this.loginErrors = loginValidations.checkValidations();
+            if (Object.keys(this.loginErrors).length > 0) return false;
+
+
+            //Make Loader Visible
+            this.showLoading(true);
+
+            await this.login({ email: this.loginEmail, password: this.loginPassword }).catch(error => {
+                this.errorMessage = error;
+                this.showLoading(false);
+            });
+        
+    },
+
+    // Function to handle sign up
+   
+        async onSignUp(){
+            let signupValidations = new AccountValidations(this.signupEmail, this.signupPassword);
+
+        this.signUpErrors = signupValidations.checkValidations();
+            if ('email' in this.signUpErrors || 'password' in this.signUpErrors) {
+                return false;
+            }
+
+            //Make Loader Visible
+            this.showLoading(true);
+
+            // Sign Up Registration - functions to display error messages to user
+            await this.signup({ email: this.signupEmail, password: this.signupPassword }).catch(error => {
+                this.errorMessage = error;
+                this.showLoading(false);
+            });
+    },
+
+    // Functions to show password between login and sign up forms
+    toggleLoginPassword() {
+        this.showLoginPassword = !this.showLoginPassword;
+    },
+    
+    toggleSignupPassword() {
+        this.showSignupPassword = !this.showSignupPassword;
+    }
+    },
+    name: 'AccountSetUpPage',
+    setup() {
+        const isActive = ref(false);
 
     const toggleActive = () => {
       isActive.value = !isActive.value;
@@ -441,4 +585,47 @@ export default {
 .container.active .toggle-right{
     transform: translateX(200%);
 }
+
+.error{
+    color: #b5b7bb;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.error-message {
+    background-color: #bb9999;
+    color: #000000;
+    font-size: 20px;
+    border: rgb(231, 47, 47) solid 1px;
+    margin: 10px 10px;
+    padding: 14px;
+    border-radius: 4px;
+    
+}
+
+.fa-solid.fa-eye {
+    font-size: 20px;
+    border: #ffffff solid 1px;
+    margin: 10px 10px;
+    padding: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #ffffff;
+}
+
+.fa-solid.fa-eye:hover {
+    color: #b99976; 
+    background-color: #ffffff;
+    transform: scale(1.1); 
+}
+
+.fa-solid.fa-eye.active {
+    color: #b99976;
+    background-color: #ffffff;
+    transform: scale(1.1);
+}
+
+
+
 </style>
