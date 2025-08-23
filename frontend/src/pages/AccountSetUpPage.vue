@@ -10,13 +10,14 @@ student: 230426271
     
   <div class="container" :class="{ active: isActive }" ref="container">
         <div class="form-container sign-up">
-            
-        
+
+            <!-- Form for signing up -->
+
             <form @submit.prevent="onSignUp()">
                 <h1 class="form-title">Create Account</h1>
 
-                    <div class="error-message" v-if="errorMessage">
-                        {{ errorMessage }}
+                    <div class="error-message" v-if="signupErrorMessage">
+                        {{ signupErrorMessage }}
                     </div>
 
                 <input type="text" placeholder="Full Name" v-model="signupFullName">
@@ -46,11 +47,13 @@ student: 230426271
         </div>
         <div class="form-container sign-in">
 
+            <!-- Form for logging in -->
+
             <form @submit.prevent="onLogin()">
                 <h1 class="form-title">Login</h1>
 
-                    <div class="error-message" v-if="errorMessage">
-                        {{ errorMessage }}
+                    <div class="error-message" v-if="loginErrorMessage">
+                        {{ loginErrorMessage }}
                     </div>
 
                 <input type="email" placeholder="Email" v-model.trim="loginEmail">
@@ -114,102 +117,77 @@ student: 230426271
 import AccountValidations from '../services/AccountValidations';
 import { ref } from 'vue';
 import { mapActions, mapMutations } from 'vuex';
-import {
-    LOADING_SPINNER_SHOW_MUTATION,
-    SIGNUP_ACTION,
-    LOGIN_ACTION,
-} from '../store/storeconstants';
+import { LOADING_SPINNER_SHOW_MUTATION, SIGNUP_ACTION, LOGIN_ACTION } from '../store/storeconstants';
 
+export default {
+  name: 'AccountSetUpPage',
 
-export default  {
-    data(){
-        return {
-            // Sign-In data form
-            loginFullName: '',
-            loginEmail: '',
-            loginPassword: '',
-            
-            // Sign-Up data form
-            signupFullName: '',
-            signupEmail: '',
-            signupPassword: '',
+  data() {
+    return {
+      loginEmail: '',
+      loginPassword: '',
+      signupEmail: '',
+      signupPassword: '',
+      signupFullName: '',
+      loginErrors: {},
+      signUpErrors: {},
+      loginErrorMessage: '',
+      signupErrorMessage: '',
+      showLoginPassword: false,
+      showSignupPassword: false
+    }
+  },
 
-            // Error messages
-            loginErrors: {},
-            signUpErrors: {},
+  methods: {
+    ...mapActions('auth', { signup: SIGNUP_ACTION, login: LOGIN_ACTION }),
+    ...mapMutations({ showLoading: LOADING_SPINNER_SHOW_MUTATION }),
 
-            errorMessage: '',
-
-            // Showing Password to User
-            showLoginPassword: false,
-            showSignupPassword: false
-        }
-    },
-    methods: {
-         ...mapActions('auth', {
-            signup: SIGNUP_ACTION,
-            login: LOGIN_ACTION,
-        }),
-
-        ...mapMutations({
-            showLoading: LOADING_SPINNER_SHOW_MUTATION,
-        }),
-
-        // Function to handle login
-        async onLogin() {
-            let loginValidations = new AccountValidations(this.loginEmail, this.loginPassword);
-
-            this.loginErrors = loginValidations.checkValidations();
-            if (Object.keys(this.loginErrors).length > 0) return false;
-
-
-            //Make Loader Visible
-            this.showLoading(true);
-
-            await this.login({ email: this.loginEmail, password: this.loginPassword }).catch(error => {
-                this.errorMessage = error;
-                this.showLoading(false);
-            });
-        
-    },
-
-    // Function to handle sign up
-   
-        async onSignUp(){
-            let signupValidations = new AccountValidations(this.signupEmail, this.signupPassword);
-
-        this.signUpErrors = signupValidations.checkValidations();
-            if ('email' in this.signUpErrors || 'password' in this.signUpErrors) {
-                return false;
-            }
-
-            //Make Loader Visible
-            this.showLoading(true);
-
-            // Sign Up Registration - functions to display error messages to user
-            await this.signup({ email: this.signupEmail, password: this.signupPassword }).catch(error => {
-                this.errorMessage = error;
-                this.showLoading(false);
-            });
-    },
-
-    // Functions to show password between login and sign up forms
-    toggleLoginPassword() {
-        this.showLoginPassword = !this.showLoginPassword;
-    },
+    async onLogin() {
+    // Create validation object
+    let loginValidations = new AccountValidations(this.loginEmail, this.loginPassword);
     
-    toggleSignupPassword() {
-        this.showSignupPassword = !this.showSignupPassword;
+    // Check for email/password errors first
+    this.loginErrors = loginValidations.checkValidations();
+    if (Object.keys(this.loginErrors).length > 0) {
+        this.loginErrorMessage = ''; // clear previous
+        return;
     }
-    },
-    name: 'AccountSetUpPage',
-    setup() {
-        const isActive = ref(false);
+    this.loginErrorMessage = ''; // clear previous error
 
-    const toggleActive = () => {
-      isActive.value = !isActive.value;
+    // Show loading spinner
+    this.showLoading(true);
+
+    try {
+        // Dispatch login action
+        await this.login({ email: this.loginEmail, password: this.loginPassword });
+    } catch (errMessage) {
+        // Catch the error message thrown by Vuex
+        this.loginErrorMessage = errMessage;
+    } finally {
+        this.showLoading(false);
     }
+},
 
+    async onSignUp() {
+      this.signUpErrors = new AccountValidations(this.signupEmail, this.signupPassword).checkValidations();
+      if (Object.keys(this.signUpErrors).length > 0) return;
+
+      this.signupErrorMessage = '';
+      this.showLoading(true);
+
+      try {
+        await this.signup({ email: this.signupEmail, password: this.signupPassword });
+      } catch (error) {
+        this.signupErrorMessage = error;
+      } finally {
+        this.showLoading(false);
+      }
+    }
+  },
+
+  setup() {
+    const isActive = ref(false);
+    const toggleActive = () => { isActive.value = !isActive.value; }
     return { isActive, toggleActive };
   }
 }
