@@ -8,7 +8,7 @@
       🚗 No cars currently available for auction
     </div>
 
-    <div class="car-list">
+    <!-- <div class="car-list">
       <div v-for="car in cars" :key="car.carVIN" class="car-card">
         <img
           :src="car.media"
@@ -22,17 +22,18 @@
           Time left: {{ formatCountdown(car.remainingTime) }}
         </p>
       </div>
-    </div>
+    </div> -->
   </div>
+</div>
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: 'ProductPage',
 }
-</script>
+{/* <script>
   name: "productPage",
   data() {
     return {
@@ -74,5 +75,5 @@ export default {
   beforeUnmount() {
     clearInterval(this.timer);
   }
-};
+}; */}
 </script>
