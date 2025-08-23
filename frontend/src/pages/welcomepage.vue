@@ -12,7 +12,7 @@
                 <li><a href="http://localhost:8080/product">PRODUCTS</a></li>
                 <li><a href="http://localhost:8080/session">AUCTION</a></li>
                 <li>CONTACT</li>
-                 <li><a href="http://localhost:8080/login">LOGIN</a></li>
+                 <li><a href="http://localhost:8080/account-setup">LOGIN</a></li>
             </ul>
         </nav>
       </div>
