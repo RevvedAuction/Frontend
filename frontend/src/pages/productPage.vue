@@ -1,140 +1,99 @@
 <template>
-  <div class="Car-page">
+  <div class="product-page">
     <div class="overlay">
+
+      <!-- 🔹 Top Navigation Bar -->
       <div class="top-bar">
         <header class="header">
           <h1 @click="goTo('home')">REVVED AUCTION</h1>
-          <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         </header>
+
         <nav class="nav-menu">
           <ul>
-            <li><a href="http://localhost:8081/product">PRODUCTS</a></li>
-            <li><a href="http://localhost:8081/session">AUCTION</a></li>
+            <li><a @click.prevent="goTo('product')">PRODUCTS</a></li>
+            <li><a @click.prevent="goTo('session')">AUCTION</a></li>
             <li>CONTACT</li>
-            <li><a href="http://localhost:8081/account-setup">LOGIN</a></li>
+            <li><a @click.prevent="goTo('account-setup')">LOGIN</a></li>
           </ul>
         </nav>
       </div>
 
-      <section class="intro-section">
-        <div class="car-grid">
-        <h2>Welcome to Revved Auction</h2>
-        <p>Your premier destination for car auctions. Explore our exclusive collection of vehicles and place your bids today!</p>
-        </div>
-      </section>
-
-      <!-- Product Listing -->
-      <section class="product-listing">
+      <!-- 🔹 Product Section -->
+      <section class="products">
         <h2>Available Cars for Auction</h2>
-        <div v-if="loading" class="loading">Loading cars...</div>
+
+        <!-- Loading -->
+        <div v-if="loading" class="loading">
+          ⏳ Loading cars...
+        </div>
+
+        <!-- Error -->
+        <div v-else-if="error" class="error-message">
+          ⚠️ {{ error }}
+        </div>
+
+        <!-- Empty -->
         <div v-else-if="cars.length === 0" class="empty-message">
           🚗 No cars currently available for auction
         </div>
-        <div class="car-grid">
-         <div class="car-card" v-for="car in cars" :key="car.carVIN">
-            <!-- Car Image -->
-            <img
-              :src="car.mediaBase64 ? car.mediaBase64 : placeholderImage"
-              alt="Car Image"
-              class="car-image"
-            />
 
-             <!-- Car Details -->
-          <div class="car-details">
-          <div class="car-title">
-          {{ car.carModel }}
+        <!-- Car List -->
+        <div class="car-list" v-else>
+          <div v-for="car in cars" :key="car.carVIN" class="car-card">
+            <img :src="car.media" alt="Car Image" class="car-image" />
+            <h3>{{ car.carMake }} {{ car.carModel }} ({{ car.carYear }})</h3>
+            <p>Mileage: {{ car.carMileage.toLocaleString() }} km</p>
+            <p>Status: {{ car.carStatus }}</p>
+            <p class="countdown">
+              Time left: {{ formatCountdown(car.remainingTime) }}
+            </p>
           </div>
-          <p class="car-info-sub"> {{ car.carYear }} {{ car.carMake }}, Mileage of {{ car.carMileage.toLocaleString() }}km</p>
-          <p class="car-location"><i class="fas fa-map-marker-alt"> Cpt, sa </i> <dev class="status">{{ car.carStatus }}</dev> </p>
-          <p class="car-info">Current Bid<strong class="bid"> R{{ car.currentBid?.toLocaleString() || '0' }}</strong></p>
-          <hr class="styled-line" />
-          <p class="car-info-time">Time left:</p>
-          <p class="countdown" :class="{ 'ended': car.remainingTime <= 0 }">
-              <span>
-                <div class="value">{{ Math.floor(car.remainingTime / (1000 * 3600 * 24)) }}</div>
-                <div class="label">Days</div>
-              </span>
-              <span>
-                <div class="value">{{ Math.floor((car.remainingTime / (1000 * 3600)) % 24) }}</div>
-                <div class="label">Hours</div>
-              </span>
-              <span>
-                <div class="value">{{ Math.floor((car.remainingTime / (1000 * 60)) % 60) }}</div>
-                <div class="label">Minutes</div>
-              </span>
-              <span>
-                <div class="value">{{ Math.floor((car.remainingTime / 1000) % 60) }}</div>
-                <div class="label">Seconds</div>
-              </span>
-      </p>
-
-    <!-- Buttons -->
-    <div class="car-actions">
-      <button class="btn-bid">Place Bid</button>
-      <button class="btn-details">View Details</button>
-    </div>
-  </div>
-</div>
         </div>
       </section>
+
     </div>
   </div>
 </template>
 
 <script>
-import CarService from "@/services/CarService";
+import axios from "axios";
 
 export default {
-  name: "productPage",
+  name: "ProductPage",
   data() {
     return {
       cars: [],
-      loading: false,
       timer: null,
-      placeholderImage: "https://via.placeholder.com/300x200?text=No+Image",
+      loading: false,
+      error: null,
     };
   },
   methods: {
     goTo(page) {
       this.$router.push({ name: page });
     },
-
-    // Fetch all active cars and prepare images & countdown
     async fetchCars() {
       this.loading = true;
+      this.error = null;
       try {
-        const res = await CarService.getActiveCars();
-        if (Array.isArray(res.data)) {
-          this.cars = res.data.map((car) => {
-            const auctionTime = new Date(car.auctionEndTime);
-            return {
-              ...car,
-              mediaBase64: car.mediaBase64 || null, // <-- do NOT prepend anything
-              remainingTime: auctionTime - new Date()
-              
-            };
-          });
-        } else {
-          this.cars = [];
-        }
+        const res = await axios.get("http://localhost:8080/api/cars/active");
+        this.cars = res.data.map((car) => ({
+          ...car,
+          remainingTime: new Date(car.auctionEndTime) - new Date(),
+        }));
       } catch (err) {
         console.error("Error fetching cars:", err);
-        this.cars = [];
+        this.error = "Could not load cars. Please try again later.";
       } finally {
         this.loading = false;
       }
     },
-
-    // Update remaining time for countdown
     updateCountdown() {
       this.cars = this.cars.map((car) => ({
         ...car,
         remainingTime: new Date(car.auctionEndTime) - new Date(),
       }));
     },
-
-    // Format countdown for display
     formatCountdown(ms) {
       if (ms <= 0) return "Auction Ended";
       const totalSeconds = Math.floor(ms / 1000);
@@ -144,14 +103,94 @@ export default {
       return `${hours}h ${minutes}m ${seconds}s`;
     },
   },
-
   mounted() {
     this.fetchCars();
     this.timer = setInterval(this.updateCountdown, 1000);
   },
-
   beforeUnmount() {
     clearInterval(this.timer);
   },
 };
 </script>
+
+<style scoped>
+/* ✅ Clean & modest styling */
+
+.overlay {
+  background: rgba(0, 0, 0, 0.6);
+  min-height: 100vh;
+  padding: 20px;
+  color: #fff;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffcc00;
+}
+
+.nav-menu ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.nav-menu li {
+  cursor: pointer;
+}
+
+.products {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.loading, .error-message, .empty-message {
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+.error-message {
+  color: #ff6666;
+}
+
+.car-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.car-card {
+  background: #1c1c1c;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.car-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.4);
+}
+
+.car-image {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.countdown {
+  font-weight: bold;
+  color: #ffcc00;
+}
+</style>
