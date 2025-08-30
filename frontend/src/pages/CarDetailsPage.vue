@@ -33,7 +33,7 @@
         </p>
 
         <p class="countdown">
-          Auction ends in: <span class="highlight">{{ formatCountdown(car.remainingTime) }}</span>
+          Auction ends in about: <span class="highlight">{{ formatCountdown(car.remainingTime) }}</span>
         </p>
       </div>
 
