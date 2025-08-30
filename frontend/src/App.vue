@@ -1,44 +1,32 @@
 <template>
-  
-  <the-loader v-if ="showLoading"></the-loader>
-  <div>
+  <TheLoader v-if="showLoading" />
+  <div id="app">
     <router-view></router-view>
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
 import TheLoader from './components/TheLoader.vue';
-import { mapState } from 'vuex';
 
-export default {
-  name: 'App',
-    computed: {
-        ...mapState({
-            showLoading: (state) => state.showLoading,
-        }),
-    },
-
-    components: {
-        TheLoader,
-    },
-
-}
+// local state for loader
+const showLoading = ref(false);
 </script>
 
 <style>
 .app-container {
   display: flex;
-  justify-content: space-between; /* pushes them apart */
-  align-items: center; /* vertically aligned */
-  height: 100vh; /* full screen height */
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
   padding: 20px;
 }
 
 .left {
-  flex: 1; /* takes space on left */
+  flex: 1;
 }
 
 .right {
-  flex: 1; /* takes space on right */
+  flex: 1;
 }
 </style>
