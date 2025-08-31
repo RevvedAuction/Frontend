@@ -1,4 +1,9 @@
 export default class Validations {
+
+    static isValidUsername(username) {
+        return /^[a-zA-Z0-9_]{3,20}$/.test(username);
+    }
+
     static checkEmail(email) {
         //email validation code
         if (
@@ -11,8 +16,8 @@ export default class Validations {
         return false;
     }
 
-    static minLength(name, minLength) {
-        if (name.length < minLength) {
+    static minLength(value, minLength) {
+        if (!value || value.length < minLength) {
             return false;
         }
         return true;
