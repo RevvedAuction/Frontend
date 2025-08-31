@@ -6,6 +6,7 @@
           <h1 @click="goTo('home')">REVVED AUCTION</h1>
           <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
         </header>
         <nav class="nav-menu">
           <ul>
@@ -18,8 +19,7 @@
       </div>
 
       <section class="intro-section">
-        <div class="car-grid">
-        <h2>Welcome to Revved Auction</h2>
+        <div class="car-intro">
         <p>Your premier destination for car auctions. Explore our exclusive collection of vehicles and place your bids today!</p>
         </div>
       </section>
@@ -29,7 +29,7 @@
         <h2>Available Cars for Auction</h2>
         <div v-if="loading" class="loading">Loading cars...</div>
         <div v-else-if="cars.length === 0" class="empty-message">
-          🚗 No cars currently available for auction
+           No cars currently available for auction
         </div>
         <div class="car-grid">
          <div class="car-card" v-for="car in cars" :key="car.carVIN">

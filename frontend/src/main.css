@@ -10,7 +10,7 @@
 }
 .Car-page {
   position: relative;
-  background-image: url('@/assets/Car-backImage.png');
+  background-color: black;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -18,19 +18,18 @@
   display: flex;
   flex-direction: column;
 }
-/* Dark overlay over entire page */
+
 .overlay {
-  position: relative; /* changed from absolute to relative so top-bar stays inside */
+  position: relative; 
   background-color: rgba(0, 0, 0, 0);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Shared top bar */
 .top-bar {
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.5); 
   padding: 0.75rem 12rem;
   display: flex;
   justify-content: space-between;
@@ -39,7 +38,6 @@
   z-index: 10;
 }
 
-/* Header styles */
 .header h1 {
   font-family: 'Bodoni Moda SC', serif;
   color: #b99976;
@@ -50,7 +48,6 @@
   cursor: pointer;
 }
 
-/* Underline */
 .header h1::after {
   content: "";
   position: absolute;
@@ -66,7 +63,6 @@
   width: 100%;
 }
 
-/* Navigation menu styles */
 .nav-menu ul {
   list-style: none;
   display: flex;
@@ -148,6 +144,7 @@ html, body, #app {
 
 .product-listing{
   margin: 170px;
+  color: white;
 }
 
 .page-title {
@@ -163,18 +160,52 @@ html, body, #app {
 .section-title {
   font-size: 1.5rem;
   margin-bottom: 15px;
+  color: #ffffff;
 }
 .empty-message {
   text-align: center;
   font-size: 1.2rem;
   margin: 50px 0;
+  color: rgb(255, 255, 255);
 }
+.car-intro p {
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #000000;
+  text-align: center;
+  margin: 10px 300px;
+  padding: 10px;
+  font-size: 1.5rem;
+}
+
+@font-face {
+  font-family: 'Emigre';
+  font-weight: normal;
+  font-style: normal;
+}
+
+.car-intro h2 {
+  font-family: 'Emigre', serif; 
+  color: #ffffff;
+  margin: 50px 30px 50px 180px;
+  padding: 10px;
+  font-size: 5rem;
+  font-weight: bold;
+  border-radius: 10px; 
+  display: inline-block;
+  animation: bounce 2s infinite;
+  animation-duration: 2s; 
+
+}
+
 .car-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
   gap: 25px;
   justify-content: center;
-  padding: 20px;
+  padding: 10px;
+  
 }
 .car-card {
   font-family: Arial, Helvetica, sans-serif;

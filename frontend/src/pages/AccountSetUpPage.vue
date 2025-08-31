@@ -83,7 +83,7 @@ student: 230426271
                 <div class="toggle-panel toggle-left">
 
                     <div class="home-button-left">
-                        <a href="http://localhost:8080/welcome">REVVED AUCTION</a>
+                        <a href="http://localhost:8081/welcome">REVVED AUCTION</a>
                     </div>
 
                     <h1 class="toggle-title">Hey, New Comer!</h1>
@@ -95,7 +95,7 @@ student: 230426271
                 <div class="toggle-panel toggle-right">
 
                     <div class="home-button-right">
-                        <a href="http://localhost:8080/welcome">REVVED AUCTION</a>
+                        <a href="http://localhost:8081/welcome">REVVED AUCTION</a>
                     </div>
 
                     <h1 class="toggle-title">Welcome Back!</h1>
