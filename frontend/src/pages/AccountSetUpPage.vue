@@ -6,6 +6,8 @@ student: 230426271
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <div class="login-background">
+    
+
     <div class="container" :class="{ active: isActive }" ref="container">
 
       <!-- Sign Up -->
