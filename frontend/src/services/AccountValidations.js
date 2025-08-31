@@ -7,20 +7,20 @@ export default class AccountValidations {
     }
 
     checkValidations() {
-        let errors = [];
+    let errors = {};
 
-        //the email validations
-        if (!Validations.checkEmail(this.email)) {
-            errors['email'] = 'invalid email';
-        }
-
-        //the password Validations
-        if (!Validations.minLength(this.password, 8)) {
-            errors['password'] = 'password should be 8 characters';
-        }
-
-        return errors;
+    // Email validation
+    if (!Validations.checkEmail(this.email)) {
+        errors.email = 'Invalid email';
     }
+
+    // Password validation
+    if (!Validations.minLength(this.password, 8)) {
+        errors.password = 'Password should be minimum of 8 characters';
+    }
+
+    return errors;
+}
 
     static getErrorMessageFromCode(errorCode) {
         switch (errorCode) {
@@ -30,8 +30,11 @@ export default class AccountValidations {
                 return 'Email Not Found. Please Create Account';
             case 'INVALID_PASSWORD':
                 return 'Invalid Password. Try Again';
+            case 'INVALID_LOGIN_CREDENTIALS':
+                return 'Email or Password is incorrect or account does not exist';
             default:
                 return 'Unexpected Error Has Occurred. Please Try Again';
         }
-    }
+}
+
 }
