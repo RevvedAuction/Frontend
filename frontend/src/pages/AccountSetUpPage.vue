@@ -77,7 +77,9 @@ student: 230426271
 
             </form>
         </div>
-        <div class="toggle-container">
+
+
+    <div class="toggle-container">
             <div class="toggle">
                 <div class="toggle-panel toggle-left">
 
@@ -102,76 +104,8 @@ student: 230426271
                     <span>Are you new? Please create an account:</span>
                     <button class = "sign-up-button" type="button" @click="toggleActive">Sign Up</button>
                 </div>
-
-    <div class="container" :class="{ active: isActive }" ref="container">
-
-      <!-- Sign Up -->
-      <div class="form-container sign-up">
-        <form @submit.prevent="saveData">
-          <h1 class="form-title">Create Account</h1>
-
-            <input type="text" placeholder="Full Name" v-model="user.userFullName" />
-
-            <input type="email" placeholder="Email" v-model="user.userEmail" />
-            <div v-if="signupErrors.email" class="error">{{ signupErrors.email }}</div>
-
-            <input :type="showSignupPassword ? 'text' : 'password'" placeholder="Password" v-model="user.userPassword" />
-            <div v-if="signupErrors.password" class="error">{{ signupErrors.password }}</div>
-
-          <i
-            class="fa-solid fa-eye"
-            :class="{ active: showSignupPassword }"
-            @click="showSignupPassword = !showSignupPassword"
-          ></i>
-          <button class="sign-up-button" type="submit">Sign Up</button>
-        </form>
-      </div>
-
-      <!-- Login -->
-      <div class="form-container sign-in">
-        <form @submit.prevent>
-          <h1 class="form-title">Login</h1>
-
-          <input type="email" placeholder="Email" v-model="loginEmail" />
-          <div v-if="loginErrors.email" class="error">{{ loginErrors.email }}</div>
-
-          <input :type="showLoginPassword ? 'text' : 'password'" placeholder="Password" v-model="loginPassword" />
-          <div v-if="loginErrors.password" class="error">{{ loginErrors.password }}</div>
-
-          <i
-            class="fa-solid fa-eye"
-            :class="{ active: showLoginPassword }"
-            @click="showLoginPassword = !showLoginPassword"
-          ></i>
-          <a href="#">Forget Your Password?</a>
-          <button class="sign-in-button" type="submit">Login</button>
-        </form>
-      </div>
-
-      <!-- Toggle panels -->
-      <div class="toggle-container">
-        <div class="toggle">
-          <div class="toggle-panel toggle-left">
-            <div class="home-button-left">
-              <a href="http://localhost:8080/welcome">REVVED AUCTION</a>
             </div>
-            <h1 class="toggle-title">Hey, New Comer!</h1>
-            <p>Welcome to Revved Auction. The place where you can find your dream car!</p>
-            <span>Already a member? Please login:</span>
-            <button class="sign-in-button" type="button" @click="toggleActive">Login</button>
-          </div>
-          <div class="toggle-panel toggle-right">
-            <div class="home-button-right">
-              <a href="http://localhost:8080/welcome">REVVED AUCTION</a>
-            </div>
-            <h1 class="toggle-title">Welcome Back!</h1>
-            <p>So glad to have you back. We have cars to auction and more features for you!</p>
-            <span>Are you new? Please create an account:</span>
-            <button class="sign-up-button" type="button" @click="toggleActive">Sign Up</button>
-          </div>
         </div>
-      </div>
-
     </div>
   </div>
 </template>
