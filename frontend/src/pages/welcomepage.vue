@@ -9,10 +9,10 @@
 
         <nav class="nav-menu">
             <ul>
-                <li><a href="http://localhost:8080/product">PRODUCTS</a></li>
-                <li><a href="http://localhost:8080/session">AUCTION</a></li>
+                <li><a href="http://localhost:8081/product">PRODUCTS</a></li>
+                <li><a href="http://localhost:8081/session">AUCTION</a></li>
                 <li>CONTACT</li>
-                 <li><a href="http://localhost:8080/account-setup">LOGIN</a></li>
+                 <li><a href="http://localhost:8081/account-setup">LOGIN</a></li>
             </ul>
         </nav>
       </div>
