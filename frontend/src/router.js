@@ -5,6 +5,9 @@ const AccountSetUp = () => import('./pages/AccountSetUpPage.vue');
 const Product = () => import('./pages/productPage.vue');
 const AuctionSession = () => import('./pages/auctionSession.vue');
 const CarDetails = () => import('./pages/CarDetailsPage.vue');
+const AdminPage = () => import('./pages/Admin.vue');
+const AdminManagement = () => import('./pages/ManageAdmins.vue')
+
 
 const routes = [
     { path: '/', redirect: '/welcome' },
@@ -13,6 +16,9 @@ const routes = [
     { path: '/product', component: Product, meta: { auth: false } },
     { path: '/auction', component: AuctionSession, meta: { auth: true } },
     { path: '/cardetails/:vin', component: CarDetails, meta: { auth: false } },
+    { path: '/admin', component: AdminPage, meta: { auth: true } },
+    { path: '/admin-management', component: AdminManagement, meta: { auth: true } },
+
 ];
 
 const router = createRouter({
