@@ -14,7 +14,7 @@
                 <li>CONTACT</li>
                  <li><a href="http://localhost:8081/account-setup">LOGIN</a></li>
                  <!-- <li><a href="http://localhost:8081/auction-history">AUCTION HISTORY</a></li> -->
-                <!-- <li><a href="http://localhost:8081/individual-form">INDIVIDUAL FORM</a></li> -->
+                <li><a href="http://localhost:8081/individual-form">INDIVIDUAL FORM</a></li>
 
             </ul>
         </nav>
