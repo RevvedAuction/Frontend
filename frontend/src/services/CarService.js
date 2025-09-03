@@ -1,7 +1,7 @@
 // src/services/CarService.js
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/api/cars';
+const API_BASE_URL = 'http://localhost:8081/api/cars';
 
 export default {
   // Fetch all active cars
