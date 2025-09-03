@@ -9,7 +9,7 @@ class AdminService{
     }
 
     readAdmin(adminNumber) {
-        return axios.get(`${API_BASE_URL}/findAdmin/${adminNumber}`);
+        return axios.get(`${API_BASE_URL}/findAdminNumber/${adminNumber}`);
     }
 
     updateAdmin(admin) {

@@ -6,6 +6,7 @@ export default {
   data() {
     return {
       admins: [],
+      filteredAdmins: [],
       searchNumber: "",
       searchedAdmin: null,
       showAddForm: false,
@@ -33,33 +34,27 @@ export default {
   },
   methods: {
     getAdmins() {
-      AdminService.getAdmins().then((response) => {
-        console.log(response.data);
-        this.admins = response.data;
-      })
-      .catch((err) => {
-        console.error("Failed to fetch admins:", err);
-        this.admins = [];
-      });
+      AdminService.getAdmins()
+          .then((response) => {
+            this.admins = response.data;
+            this.filteredAdmins = response.data; // <--- ADD THIS
+          })
+          .catch((err) => {
+            console.error("Failed to fetch admins:", err);
+            this.admins = [];
+            this.filteredAdmins = [];
+          });
     },
 
     searchAdmin() {
-      const number = this.searchNumber?.toString().trim();
-      if (number) {
-        AdminService.readAdmin(number).then((response) => {
-            if (response?.data) {
-              this.searchedAdmin = response.data;
-            } else {
-              this.searchedAdmin = null;
-            }
-          })
-          .catch((error) => {
-            this.searchedAdmin = null;
-            console.error("Error fetching admin:", error);
-          });
-      } else {
-        this.searchedAdmin = null;
+      const input = this.searchNumber.toString().trim();
+      if (!input) {
+        this.filteredAdmins = this.admins;
+        return;
       }
+      this.filteredAdmins = this.admins.filter((admin) =>
+          admin.adminNumber.toString().startsWith(input)
+      );
     },
 
     clearSearch() {
@@ -121,15 +116,14 @@ export default {
     },
 
     confirmDeleteAdmin() {
-      AdminService.deleteAdmin(this.deleteAdmin.adminId)
-          .then(() => {
-            this.showDeleteConfirm = false;
-            this.deleteAdmin = null;
-            this.getAdmins();
-          })
-          .catch(error => {
-            alert('Failed to delete admin: ' + error.message);
-          });
+      AdminService.deleteAdmin(this.deleteAdmin.adminNumber).then(() => {
+          this.showDeleteConfirm = false;
+          this.deleteAdmin = null;
+          this.getAdmins();
+        })
+        .catch(error => {
+          alert('Failed to delete admin: ' + error.message);
+      });
     },
   },
   created() {
@@ -149,9 +143,9 @@ export default {
           v-model="searchNumber"
           type="number"
           class="form-control"
-          placeholder="Enter Employee Number"
-          aria-label="Employee Number"
-          @keydown.enter="searchAdmin"
+          placeholder="Enter Admin Number"
+          aria-label="Admin Number"
+          @input="searchAdmin"
       />
       <button @click="searchAdmin" class="btn btn-primary mt-2">Search</button>
       <button v-if="searchNumber" @click="clearSearch" class="btn btn-secondary mt-2 ml-2">Clear</button>
@@ -183,8 +177,8 @@ export default {
     </div>
 
     <!-- Admin List -->
-    <div v-if="!searchedAdmin && admins.length > 0" class="row">
-      <div class="col-md-4" v-for="admin in admins" :key="admin.adminId">
+    <div v-if="filteredAdmins.length > 0" class="row">
+      <div class="col-md-4" v-for="admin in filteredAdmins" :key="admin.adminId">
         <div class="card mb-4">
           <div class="card-body">
             <h5 class="card-title">{{ admin.fullName }}</h5>
@@ -204,7 +198,7 @@ export default {
         <form @submit.prevent="submitAdmin">
           <div class="form-group">
             <label>Admin Number</label>
-            <input v-model="newAdmin.adminNumber" type="text" class="form-control" required />
+            <input v-model.number="newAdmin.adminNumber" type="number" class="form-control" required />
           </div>
           <div class="form-group">
             <label>Full Name</label>
@@ -239,7 +233,7 @@ export default {
         <form @submit.prevent="submitEditAdmin">
           <div class="form-group">
             <label>Admin Number</label>
-            <input v-model="editAdmin.adminNumber" type="text" class="form-control" required />
+            <input v-model.number="editAdmin.adminNumber" type="number" class="form-control" required />
           </div>
           <div class="form-group">
             <label>Full Name</label>
@@ -275,7 +269,7 @@ export default {
             </button>
           </div>
           <div class="modal-body">
-            <p>Are you sure you want to delete admin <strong>{{ deleteAdmin.fullName }}</strong>?</p>
+            <p>Are you sure you want to delete admin <strong>{{ deleteAdmin.fullName }} : ID {{ deleteAdmin.adminNumber }}</strong>?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="cancelDelete">Cancel</button>
@@ -313,6 +307,12 @@ h1 {
 
 .add-admin-card:hover {
   background-color: #e0f0ff;
+}
+
+.modal {
+  display: block !important;
+  opacity: 1 !important;
+  z-index: 9999;
 }
 
 .modal-overlay {
