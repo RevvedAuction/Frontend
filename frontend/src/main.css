@@ -144,6 +144,7 @@ html, body, #app {
 
 .product-listing{
   margin: 170px;
+  margin-top: 50px;
   color: white;
 }
 
@@ -174,7 +175,7 @@ html, body, #app {
   background: #fff;
   color: #000000;
   text-align: center;
-  margin: 10px 300px;
+  margin: 10px 200px;
   padding: 10px;
   font-size: 1.5rem;
 }
