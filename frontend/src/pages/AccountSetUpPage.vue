@@ -9,10 +9,16 @@ student: 230426271
 
       <!-- Sign Up Form -->
       <div class="form-container sign-up">
+        <form @submit.prevent="saveData" novalidate>
         <form @submit.prevent="onSignUp()">
           <h1 class="form-title">Create Account</h1>
           <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
 
+            <input type="text" placeholder="Username" v-model="user.userFullName" />
+            <div v-if="signupErrors.username" class="error">{{ signupErrors.username }}</div>
+
+            <input placeholder="Email" v-model="user.userEmail" />
+            <div v-if="signupErrors.email" class="error">{{ signupErrors.email }}</div>
           <input type="text" placeholder="Full Name" v-model="signupFullName" />
           <input type="email" placeholder="Email" v-model="signupEmail" />
           <div class="error" v-if="signUpErrors.email">{{ signUpErrors.email }}</div>
@@ -28,6 +34,7 @@ student: 230426271
 
       <!-- Sign In Form -->
       <div class="form-container sign-in">
+        <form @submit.prevent="loginUser">
         <form @submit.prevent="onLogin()">
           <h1 class="form-title">Login</h1>
           <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
@@ -35,6 +42,8 @@ student: 230426271
           <input type="email" placeholder="Email" v-model.trim="loginEmail" />
           <div class="error" v-if="loginErrors.email">{{ loginErrors.email }}</div>
 
+          <input type="text" placeholder="Username" v-model="user.userFullName" />
+          <div v-if="loginErrors.username" class="error">{{ loginErrors.username }}</div>
           <input :type="showLoginPassword ? 'text' : 'password'" placeholder="Password" v-model.trim="loginPassword" />
           <div class="error" v-if="loginErrors.password">{{ loginErrors.password }}</div>
 
@@ -85,13 +94,13 @@ export default {
       isActive: false,
       showSignupPassword: false,
       showLoginPassword: false,
-      loginEmail: '',
+      loginUsername: '',
       loginPassword: '',
       signupErrors: {},
       loginErrors: {},
       user: {
         userID: '',
-        userType: '',
+        userType: 'USER',
         userFullName: '',
         userEmail: '',
         userPassword: ''
@@ -107,51 +116,66 @@ export default {
 
     // Validate signup credentials
 
-    validateSignup() {
-      const validator = new AccountValidations(this.user.userEmail, this.user.userPassword);
-      this.signupErrors = validator.checkValidations();
-      return Object.keys(this.signupErrors).length === 0;
-    },
+    // validateSignup() {
+    //   const validator = new AccountValidations(
+    //     {
+    //     username: this.user.userFullName, 
+    //     email: this.user.userEmail, 
+    //     password: this.user.userPassword
+    //   });
+    //   this.signupErrors = validator.checkValidations();
+    //   if( Object.keys(this.signupErrors).length === 0) return;
+    // },
 
     saveData() {
-      if (!this.validateSignup()) {
-        return;
-      }
-
-      axios
-        .post("http://localhost:8081/api/user/register", this.user)
-        .then(({ data }) => {
-          alert("Saved: " + JSON.stringify(data));
-        })
-        .catch(err => {
-          console.error(err);
-          this.loginErrors.email = 'Invalid email';
+        const validator = new AccountValidations({
+          username: this.user.userFullName,
+          email: this.user.userEmail,
+          password: this.user.userPassword
         });
+        this.signupErrors = validator.checkValidations();
+
+        if (Object.keys(this.signupErrors).length !== 0) return;
+
+        axios
+          .post("http://localhost:8080/api/user/register", this.user)
+          .then(() => {
+            alert("Registered Successfully!");
+            this.toggleActive();
+          })
+          .catch(err => {
+            console.error(err);
+            this.signupErrors.email = 'Invalid email';
+          });
     },
 
     // Validate login credentials
     validateLogin() {
-      const validator = new AccountValidations(this.loginEmail, this.loginPassword);
+      const validator = new AccountValidations(
+        {
+          username: this.loginUsername,
+          password: this.loginPassword
+        }
+      );
       this.loginErrors = validator.checkValidations();
       return Object.keys(this.loginErrors).length === 0;
     },
 
     loginUser() {
-      if (!this.validateLogin()) {
-        return;
-      }
-
+      if (!this.validateLogin()) return;
+      
       axios
-        .post("http://localhost:8081/api/user/login", {
-          email: this.loginEmail,
+        .post("http://localhost:8080/api/user/login", {
+          username: this.loginUsername,
           password: this.loginPassword
         })
-        .then(({ data }) => {
-          alert("Login successful!" + JSON.stringify(data));
+        .then(() => {
+          alert("Login successful!");
+          this.$router.push( '/product' );
         })
         .catch(err => {
           console.error(err);
-          this.loginErrors.password = 'Invalid password';
+          this.loginErrors.password = 'Invalid username or password';
         });
     }
   }
