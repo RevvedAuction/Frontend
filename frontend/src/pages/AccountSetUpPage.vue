@@ -4,55 +4,57 @@ student: 230426271
 -->
 
 <template>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <div class="login-background">
     <div class="container" :class="{ active: isActive }" ref="container">
 
-      <!-- Sign Up -->
+      <!-- Sign Up Form -->
       <div class="form-container sign-up">
         <form @submit.prevent="saveData" novalidate>
+        <form @submit.prevent="onSignUp()">
           <h1 class="form-title">Create Account</h1>
+          <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
 
             <input type="text" placeholder="Username" v-model="user.userFullName" />
             <div v-if="signupErrors.username" class="error">{{ signupErrors.username }}</div>
 
             <input placeholder="Email" v-model="user.userEmail" />
             <div v-if="signupErrors.email" class="error">{{ signupErrors.email }}</div>
+          <input type="text" placeholder="Full Name" v-model="signupFullName" />
+          <input type="email" placeholder="Email" v-model="signupEmail" />
+          <div class="error" v-if="signUpErrors.email">{{ signUpErrors.email }}</div>
 
-            <input :type="showSignupPassword ? 'text' : 'password'" placeholder="Password" v-model="user.userPassword" />
-            <div v-if="signupErrors.password" class="error">{{ signupErrors.password }}</div>
+          <input :type="showSignupPassword ? 'text' : 'password'" placeholder="Password" v-model="signupPassword" />
+          <div class="error" v-if="signUpErrors.password">{{ signUpErrors.password }}</div>
 
-          <i
-            class="fa-solid fa-eye"
-            :class="{ active: showSignupPassword }"
-            @click="showSignupPassword = !showSignupPassword"
-          ></i>
+          <i class="fa-solid fa-eye" :class="{ active: showSignupPassword }" @click="showSignupPassword = !showSignupPassword"></i>
+
           <button class="sign-up-button" type="submit">Sign Up</button>
         </form>
       </div>
 
-      <!-- Login -->
+      <!-- Sign In Form -->
       <div class="form-container sign-in">
         <form @submit.prevent="loginUser">
+        <form @submit.prevent="onLogin()">
           <h1 class="form-title">Login</h1>
+          <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
+
+          <input type="email" placeholder="Email" v-model.trim="loginEmail" />
+          <div class="error" v-if="loginErrors.email">{{ loginErrors.email }}</div>
 
           <input type="text" placeholder="Username" v-model="user.userFullName" />
           <div v-if="loginErrors.username" class="error">{{ loginErrors.username }}</div>
+          <input :type="showLoginPassword ? 'text' : 'password'" placeholder="Password" v-model.trim="loginPassword" />
+          <div class="error" v-if="loginErrors.password">{{ loginErrors.password }}</div>
 
-          <input :type="showLoginPassword ? 'text' : 'password'" placeholder="Password" v-model="loginPassword" />
-          <div v-if="loginErrors.password" class="error">{{ loginErrors.password }}</div>
+          <i class="fa-solid fa-eye" :class="{ active: showLoginPassword }" @click="showLoginPassword = !showLoginPassword"></i>
 
-          <i
-            class="fa-solid fa-eye"
-            :class="{ active: showLoginPassword }"
-            @click="showLoginPassword = !showLoginPassword"
-          ></i>
           <a href="#">Forget Your Password?</a>
           <button class="sign-in-button" type="submit">Login</button>
         </form>
       </div>
 
-      <!-- Toggle panels -->
+      <!-- Toggle Panels -->
       <div class="toggle-container">
         <div class="toggle">
           <div class="toggle-panel toggle-left">
@@ -79,6 +81,7 @@ student: 230426271
     </div>
   </div>
 </template>
+
 
 <script>
 import axios from "axios";
@@ -214,13 +217,12 @@ export default {
 }
 
 .container {
-    background-color: #000000;
-    border-radius: 30px;
+  background-color: #000000;
+  border-radius: 30px;
   width: 100%;
   height: 100%;
   max-width: none;
   min-height: 100vh;
-  border-radius: 0;
   box-shadow: none;
   display: flex;
   flex-direction: column;
