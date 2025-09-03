@@ -19,7 +19,7 @@ export default class AccountValidations {
 
     // Email validation
     if (this.email && !Validations.checkEmail(this.email)) {
-        errors.email = 'Invalid email';
+        errors.email = 'Invalid email format';
     }
 
     // Password validation
@@ -28,21 +28,6 @@ export default class AccountValidations {
     }
 
     return errors;
-}
-
-    static getErrorMessageFromCode(errorCode) {
-        switch (errorCode) {
-            case 'EMAIL_EXISTS':
-                return 'Email already exists. Please Login';
-            case 'EMAIL_NOT_FOUND':
-                return 'Email Not Found. Please Create Account';
-            case 'INVALID_PASSWORD':
-                return 'Invalid Password. Try Again';
-            case 'INVALID_LOGIN_CREDENTIALS':
-                return 'Email or Password is incorrect or account does not exist';
-            default:
-                return 'Unexpected Error Has Occurred. Please Try Again';
-        }
 }
 
 }
