@@ -12,14 +12,14 @@ student: 230426271
 
       <!-- Sign Up -->
       <div class="form-container sign-up">
-        <form @submit.prevent="saveData">
+        <form @submit.prevent="saveData" novalidate>
           <h1 class="form-title">Create Account</h1>
 
             <input type="text" placeholder="Username" v-model="user.userFullName" />
             <div v-if="signupErrors.username" class="error">{{ signupErrors.username }}</div>
 
-            <input type="email" placeholder="Email" v-model="user.userEmail" />
-            
+            <input placeholder="Email" v-model="user.userEmail" />
+            <div v-if="signupErrors.email" class="error">{{ signupErrors.email }}</div>
 
             <input :type="showSignupPassword ? 'text' : 'password'" placeholder="Password" v-model="user.userPassword" />
             <div v-if="signupErrors.password" class="error">{{ signupErrors.password }}</div>
@@ -99,7 +99,7 @@ export default {
       loginErrors: {},
       user: {
         userID: '',
-        userType: '',
+        userType: 'USER',
         userFullName: '',
         userEmail: '',
         userPassword: ''
@@ -115,31 +115,47 @@ export default {
 
     // Validate signup credentials
 
-    validateSignup() {
-      const validator = new AccountValidations(this.user.userFullName, this.user.userEmail, this.user.userPassword);
-      this.signupErrors = validator.checkValidations();
-      return Object.keys(this.signupErrors).length === 0;
-    },
+    // validateSignup() {
+    //   const validator = new AccountValidations(
+    //     {
+    //     username: this.user.userFullName, 
+    //     email: this.user.userEmail, 
+    //     password: this.user.userPassword
+    //   });
+    //   this.signupErrors = validator.checkValidations();
+    //   if( Object.keys(this.signupErrors).length === 0) return;
+    // },
 
     saveData() {
-      if (!this.validateSignup()) 
-        return;
-
-      axios
-        .post("http://localhost:8080/api/user/register", this.user)
-        .then(({ data }) => {
-          alert("Saved: " + JSON.stringify(data));
-          this.toggleActive();
-        })
-        .catch(err => {
-          console.error(err);
-          this.signupErrors.email = 'Invalid email';
+        const validator = new AccountValidations({
+          username: this.user.userFullName,
+          email: this.user.userEmail,
+          password: this.user.userPassword
         });
+        this.signupErrors = validator.checkValidations();
+
+        if (Object.keys(this.signupErrors).length !== 0) return;
+
+        axios
+          .post("http://localhost:8080/api/user/register", this.user)
+          .then(() => {
+            alert("Registered Successfully!");
+            this.toggleActive();
+          })
+          .catch(err => {
+            console.error(err);
+            this.signupErrors.email = 'Invalid email';
+          });
     },
 
     // Validate login credentials
     validateLogin() {
-      const validator = new AccountValidations(this.loginUsername, this.loginPassword);
+      const validator = new AccountValidations(
+        {
+          username: this.loginUsername,
+          password: this.loginPassword
+        }
+      );
       this.loginErrors = validator.checkValidations();
       return Object.keys(this.loginErrors).length === 0;
     },
@@ -152,8 +168,8 @@ export default {
           username: this.loginUsername,
           password: this.loginPassword
         })
-        .then(({ data }) => {
-          alert("Login successful!" + JSON.stringify(data));
+        .then(() => {
+          alert("Login successful!");
           this.$router.push( '/product' );
         })
         .catch(err => {

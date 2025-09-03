@@ -11,18 +11,12 @@
         <nav class="nav-menu">
           <ul>
             <li><a href="http://localhost:8081/product">PRODUCTS</a></li>
-            <li><a href="http://localhost:8081/session">AUCTION</a></li>
-            <li>CONTACT</li>
-            <li><a href="http://localhost:8081/account-setup">LOGIN</a></li>
+                <li><a href="http://localhost:8081/session">AUCTION</a></li>
+                <li><a href="http://localhost:8081/contact-support">CONTACT</a></li>
+                 <li><a href="http://localhost:8081/account-setup">LOGIN</a></li>
           </ul>
         </nav>
       </div>
-
-      <section class="intro-section">
-        <div class="car-intro">
-        <p>Your premier destination for car auctions. Explore our exclusive collection of vehicles and place your bids today!</p>
-        </div>
-      </section>
 
       <!-- Product Listing -->
       <section class="product-listing">
@@ -71,8 +65,8 @@
 
     <!-- Buttons -->
     <div class="car-actions">
-      <button class="btn-bid">Place Bid</button>
-      <button class="btn-details">View Details</button>
+      <button class="btn-bid"><a href="http://localhost:8081/account-setup">Place Bid</a></button>
+      <button class="btn-details"><a href="http://localhost:8081/cardetails/1HGCM82633A123456 ">View Details</a></button>
     </div>
   </div>
 </div>
