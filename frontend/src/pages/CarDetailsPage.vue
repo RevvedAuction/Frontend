@@ -166,7 +166,7 @@ export default {
 <style scoped>
 .car-page {
   font-family: 'Montserrat', sans-serif;
-  background: #f8f9fb;
+  background: linear-gradient(#b99976, #000000);;
   min-height: 100vh;
   padding: 20px;
 }

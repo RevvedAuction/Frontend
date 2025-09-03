@@ -11,7 +11,7 @@
             <ul>
                 <li><a href="http://localhost:8081/product">PRODUCTS</a></li>
                 <li><a href="http://localhost:8081/session">AUCTION</a></li>
-                <li>CONTACT</li>
+                <li><a href="http://localhost:8081/contact-support">CONTACT</a></li>
                  <li><a href="http://localhost:8081/account-setup">LOGIN</a></li>
                  <!-- <li><a href="http://localhost:8081/auction-history">AUCTION HISTORY</a></li> -->
                 <!-- <li><a href="http://localhost:8081/individual-form">INDIVIDUAL FORM</a></li> -->
