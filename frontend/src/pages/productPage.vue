@@ -60,6 +60,7 @@
                 </span>
               </p>
 
+<<<<<<< HEAD
               <div class="car-actions">
                 <button class="btn-bid" @click="placeBid(car)">Place Bid</button>
                 <button class="btn-details" @click="$router.push({ name: 'cardetails', params: { vin: car.carVIN } })">
@@ -68,6 +69,15 @@
               </div>
             </div>
           </div>
+=======
+    <!-- Buttons -->
+    <div class="car-actions">
+      <button class="btn-bid"><a class="btn-bid" href="http://localhost:8081/account-setup">Place Bid</a></button>
+      <button class="btn-details"><a class="btn-details" href="http://localhost:8081/cardetails/1HGCM82633A123456 ">View Details</a></button>
+    </div>
+  </div>
+</div>
+>>>>>>> 2739d0b (Modified Account SetUp)
         </div>
       </section>
     </div>

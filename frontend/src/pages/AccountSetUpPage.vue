@@ -144,7 +144,7 @@ export default {
           })
           .catch(err => {
             console.error(err);
-            this.signupErrors.email = 'Invalid email';
+            this.signupErrors.email = 'Registration failed. Email may already be in use.';
           });
     },
 
