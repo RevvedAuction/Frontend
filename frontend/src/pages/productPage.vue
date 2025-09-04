@@ -65,8 +65,8 @@
 
     <!-- Buttons -->
     <div class="car-actions">
-      <button class="btn-bid"><a href="http://localhost:8081/account-setup">Place Bid</a></button>
-      <button class="btn-details"><a href="http://localhost:8081/cardetails/1HGCM82633A123456 ">View Details</a></button>
+      <button class="btn-bid"><a class="btn-bid" href="http://localhost:8081/account-setup">Place Bid</a></button>
+      <button class="btn-details"><a class="btn-details" href="http://localhost:8081/cardetails/1HGCM82633A123456 ">View Details</a></button>
     </div>
   </div>
 </div>
