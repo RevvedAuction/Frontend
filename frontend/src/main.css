@@ -285,6 +285,7 @@ html, body, #app {
   border: none;
   cursor: pointer;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .car-actions .btn-bid:hover {
@@ -299,6 +300,7 @@ html, body, #app {
   border-radius: 8px;
   border: 1px solid #ddd;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .car-actions .btn-details:hover {
