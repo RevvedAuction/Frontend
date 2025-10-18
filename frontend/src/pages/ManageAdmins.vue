@@ -127,7 +127,6 @@ export default {
   <div class="container">
     <h1 class="text-center mt-4">Admin Management</h1>
 
-    <!-- Search Form -->
     <div class="mb-4">
       <input
           v-model="searchNumber"
@@ -137,11 +136,10 @@ export default {
           aria-label="Admin Number"
           @input="searchAdmin"
       />
-      <button @click="searchAdmin" class="btn btn-primary mt-2">Search</button>
+      <button @click="searchAdmin" class="btn search-btn mt-2">Search</button>
       <button v-if="searchNumber" @click="clearSearch" class="btn btn-secondary mt-2 ml-2">Clear</button>
     </div>
 
-    <!-- Display Search Result -->
     <div v-if="searchedAdmin" class="row">
       <div class="col-md-4">
         <div class="card mb-4">
@@ -154,7 +152,6 @@ export default {
       </div>
     </div>
 
-    <!-- Add Admin Button/Card -->
     <div class="row mb-4">
       <div class="col-md-4">
         <div class="card add-admin-card" @click="showAddForm = true">
@@ -166,22 +163,20 @@ export default {
       </div>
     </div>
 
-    <!-- Admin List -->
     <div v-if="filteredAdmins.length > 0" class="row">
       <div class="col-md-4" v-for="admin in filteredAdmins" :key="admin.adminId">
         <div class="card mb-4">
           <div class="card-body">
             <h5 class="card-title">{{ admin.fullName }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ admin.email }}</h6>
+            <h6 class="card-subtitle mb-2">{{ admin.email }}</h6>
 
-            <button class="btn btn-sm btn-primary" @click="openEditForm(admin)">Edit</button>
-            <button class="btn btn-sm btn-danger ml-2" @click="confirmDelete(admin)">Delete</button>
+            <button class="edit-btn" @click="openEditForm(admin)">Edit</button>
+            <button class="delete-btn ml-2" @click="confirmDelete(admin)">Delete</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Add Admin Modal -->
     <div v-if="showAddForm" class="modal-overlay" @click.self="showAddForm = false">
       <div class="modal-content">
         <h5 class="modal-title mb-3">Create New Admin</h5>
@@ -216,7 +211,6 @@ export default {
       </div>
     </div>
 
-    <!-- Edit Admin Modal -->
     <div v-if="showEditForm" class="modal-overlay" @click.self="showEditForm = false">
       <div class="modal-content">
         <h5 class="modal-title mb-3">Edit Admin</h5>
@@ -248,7 +242,6 @@ export default {
       </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
     <div class="modal" tabindex="-1" role="dialog" v-if="showDeleteConfirm">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -276,66 +269,126 @@ export default {
 </template>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
+
 .container {
-  padding: 2rem;
+  padding: 2rem 3rem;
+  font-family: 'Arial', Helvetica, sans-serif;
+  color: #ffffff;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
 }
+
 h1 {
   margin-bottom: 2rem;
-  text-align: center
+  text-align: center;
+  font-family: 'Bodoni Moda SC', serif;
+  color: #b99976;
+  font-size: 2.5rem;
 }
+
 .add-admin-card {
-  background-color: #f1f8ff;
-  border: 2px dashed #1e90ff;
-  border-radius: 8px;
+  background-color: rgba(185, 153, 118, 0.1);
+  border: 2px dashed #b99976;
+  border-radius: 12px;
+  padding: 2rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  text-align: center;
 }
+
 .add-admin-card:hover {
-  background-color: #e0f0ff;
+  background-color: rgba(185, 153, 118, 0.2);
+  box-shadow: 0 6px 15px rgba(185, 153, 118, 0.5);
 }
-.modal {
-  display: block !important;
-  opacity: 1 !important;
-  z-index: 9999;
-}
+
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.75);
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .modal-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
+  background: rgba(30,30,30,0.9);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  border-radius: 15px;
   width: 600px;
   max-width: 90%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+  color: #ffffff;
+  font-family: 'Arial', Helvetica, sans-serif;
 }
+
 .card {
-  color: #1e90ff;
-  background: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
-  transition: box-shadow 0.3s ease;
+  color: #b99976; /* golden text */
+  background: rgba(30, 30, 30, 0.85); /* dark card background */
+  border: 1px solid rgba(185,153,118,0.5);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  padding: 1rem 1.5rem;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
+
 .card:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 15px rgba(185,153,118,0.5);
+  transform: translateY(-3px);
 }
+
+.card button {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-family: 'Arial', Helvetica, sans-serif;
+}
+.card .edit-btn {
+  background-color: #b99976;
+  color: #1c1c1c;
+}
+.card .delete-btn {
+  background-color: #a63a3a; /* muted deep red */
+  color: #ffffff;
+}
+.card .delete-btn:hover {
+  background-color: #c14c4c;
+}
+.search-btn {
+  background-color: #b99976; /* golden */
+  color: #1c1c1c; /* dark text for contrast */
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+  background-color: #d4b783; /* lighter golden on hover */
+}
+
 .text-center {
   text-align: center;
 }
+
 .text-success {
-  color: green;
+  color: #4caf50; /* green */
+  font-weight: 600;
 }
+
 .text-danger {
-  color: red;
+  color: #ff5a5f; /* red */
+  font-weight: 600;
 }
+
 </style>
