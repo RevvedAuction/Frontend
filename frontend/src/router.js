@@ -9,7 +9,8 @@ const CarDetails = () => import('./pages/CarDetailsPage.vue');
 const AuctionHistory = () => import('./pages/AuctionHistory.vue');
 const IndividualForm = () => import('./pages/IndividualForm.vue');
 const AdminPage = () => import('./pages/Admin.vue');
-const AdminManagement = () => import('./pages/ManageAdmins.vue')
+const AdminManagement = () => import('./pages/ManageAdmins.vue');
+const CarAdminPage = () => import('./pages/CarAdmin.vue'); 
 
 const routes = [
     { path: '/', redirect: '/welcome' },
@@ -18,11 +19,18 @@ const routes = [
     { path: '/contact-support', component: ContactSupport, meta: { auth: false } },
     { path: '/product', component: Product, meta: { auth: false } },
     { path: '/auction', component: AuctionSession, meta: { auth: true } },
-    { path: '/cardetails/:vin', component: CarDetails, meta: { auth: false } },
+    {
+      path: '/cardetails/:vin',   
+      name: 'cardetails',         
+      component: CarDetails,
+      props: true,                
+      meta: { auth: false }
+    },
     { path: '/auction-history', component: AuctionHistory, meta: { auth: true } },
     { path: '/individual-form', component: IndividualForm, meta: { auth: false } },
     { path: '/admin', component: AdminPage, meta: { auth: true } },
     { path: '/admin-management', component: AdminManagement, meta: { auth: true } },
+    { path: '/car-management', component: CarAdminPage, meta: { auth: true } }, 
 ];
 
 const router = createRouter({

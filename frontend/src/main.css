@@ -29,7 +29,7 @@
 
 .top-bar {
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgba(0, 0, 0, 0.832); 
   padding: 0.75rem 12rem;
   display: flex;
   justify-content: space-between;
@@ -98,7 +98,6 @@
   font-weight: bold;
 }
 
-/* Features section centered */
 .features {
   flex: 1;
   display: flex;
@@ -324,10 +323,9 @@ html, body, #app {
   color: #000000;
   margin-left: 220px;
 }
-/* Container for the entire countdown timer */
 .countdown {
   display: flex;
-  gap: 10px; /* space between the units */
+  gap: 10px; 
   align-items: center;
   margin-top: 10px;
   font-family: 'Montserrat', sans-serif;
@@ -345,21 +343,17 @@ html, body, #app {
   transition: background-color 0.3s;
 }
 
-/* Numeric value styling */
 .countdown .value {
   font-size: 1.2em;
   font-weight: bold;
   color: #222;
 }
 
-/* Label styling (Days, Hours, etc.) */
 .countdown .label {
   font-size: 0.75em;
   margin-top: 4px;
   color: #555;
 }
-
-/* Optional: highlight when auction ended */
 .countdown.ended span {
   background-color: #ccc;
   color: #888;
@@ -372,8 +366,65 @@ html, body, #app {
   margin-bottom: 1px;
 }
 .styled-line {
-  background-color: #67676757; /* Color of the line */
-  width: 100%; /* Length of the line */
-  margin: 10px 0; /* Space around the line */
-  border-radius: 10px; /* Rounded edges (optional) */
+  background-color: #67676757; 
+  width: 100%; 
+  margin: 10px 0; 
+  border-radius: 10px; 
+}
+.home-hero {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bodoni Moda SC', serif;
+}
+
+.hero-overlay {
+  background: rgba(49, 49, 49, 0.7);
+  padding: 60px 40px;
+  border-radius: 20px;
+  text-align: center;
+  color: #ffffff;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  backdrop-filter: blur(6px);
+}
+
+.hero-overlay h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #b99976;
+  text-shadow: 0 0 16px #b9997662(191 0% 0% / 0.5);
+}
+
+.hero-overlay h1 span {
+  color: #9d474a;
+  text-shadow: 0 0 18px #ff5a5f80;
+}
+
+.hero-overlay p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #b99976(184, 195, 207);
+}
+
+.btn-hero {
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0b0f14;
+  background: linear-gradient(90deg, #b9997662, #ff5a5f80);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-hero:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0,209,255,0.3), 0 10px 28px rgba(255,90,95,0.3);
 }

@@ -10,7 +10,6 @@
         <nav class="nav-menu">
             <ul>
                 <li><a href="http://localhost:8081/product">PRODUCTS</a></li>
-                <li><a href="http://localhost:8081/session">AUCTION</a></li>
                 <li><a href="http://localhost:8081/contact-support">CONTACT</a></li>
                  <li><a href="http://localhost:8081/account-setup">LOGIN</a></li>
                  <!-- <li><a href="http://localhost:8081/auction-history">AUCTION HISTORY</a></li> -->
@@ -20,15 +19,13 @@
         </nav>
       </div>
 
-      <section class="features">
-        <h2>Why Choose Us?</h2>
-        <ul>
-          <li> Verified Sellers & Bidders</li>
-          <li> Real-time Bidding</li>
-          <li> Secure Transactions</li>
-          <li> Nationwide Pickup & Delivery</li>
-        </ul>
-      </section>
+      <section class="home-hero">
+  <div class="hero-overlay">
+    <h1>Welcome to <span>Revved Auctions</span></h1>
+    <p>Your next ride is just a bid away — browse, bid, and drive home the car of your dreams.</p>
+    <a href="/product" class="btn-hero">Browse Cars</a>
+  </div>
+</section>
     </div>
   </div>
 </template>
