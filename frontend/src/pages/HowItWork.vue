@@ -2,7 +2,7 @@
   <div class="how-it-works-container">
     <h1>How It Works</h1>
     <p class="intro">
-      Welcome to our platform! Here’s a simple breakdown of how everything works:
+      From dream to driveway in just a few simple steps.
     </p>
 
     <div class="steps">
@@ -10,6 +10,10 @@
         <h3>{{ step.title }}</h3>
         <p>{{ step.description }}</p>
       </div>
+    </div>
+
+    <div class="contact-button-container">
+      <router-link to="/contact-support" class="contact-button">Contact Us for More Information</router-link>
     </div>
   </div>
 </template>
@@ -26,19 +30,19 @@ export default {
             "Create an account to get started or log in if you already have one.",
         },
         {
-          title: "2. Browse Features",
+          title: "2. Browse Cars",
           description:
-            "Explore all our tools and services designed to make your experience seamless.",
+            "Browse through our collection of luxury vehicle",
         },
         {
-          title: "3. Manage Your Account",
+          title: "3. Bid",
           description:
-            "Easily edit your profile, update settings, and access your personalized dashboard.",
+            "Bid on your favorite cars during live auction",
         },
         {
-          title: "4. Get Support",
+          title: "4. Win & Drive",
           description:
-            "If you need assistance, our support team is always here to help you.",
+            "Win the auction,complete payment and we'll deliver your dream car to your doorstep.",
         },
       ],
     };
@@ -93,5 +97,27 @@ h1 {
 .step-card h3 {
   color: #b99976;
   margin-bottom: 0.5rem;
+}
+
+/* Added button styles */
+.contact-button-container {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.contact-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #b99976;
+  color: #000;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contact-button:hover {
+  background-color: #d4b483;
+  transform: scale(1.05);
 }
 </style>
