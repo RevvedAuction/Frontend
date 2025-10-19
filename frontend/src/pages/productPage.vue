@@ -10,10 +10,9 @@
         </header>
         <nav class="nav-menu">
           <ul>
-            <li><router-link to="/product">PRODUCTS</router-link></li>
-            <li><router-link to="/session">AUCTION</router-link></li>
+            <li><router-link to="/product">AUCTION</router-link></li>
             <li><router-link to="/contact-support">CONTACT</router-link></li>
-            <li><router-link to="/Account">LOGIN</router-link></li>
+            <li><router-link to="/account-setup">LOGIN</router-link></li>
           </ul>
         </nav>
       </div>
