@@ -9,11 +9,10 @@
 
         <nav class="nav-menu">
             <ul>
-                <li><a href="http://localhost:8081/product">PRODUCTS</a></li>
-                <li><a href="http://localhost:8081/contact-support">CONTACT</a></li>
-                 <li><a href="http://localhost:8081/account-setup">LOGIN</a></li>
-                 <!-- <li><a href="http://localhost:8081/auction-history">AUCTION HISTORY</a></li> -->
-                <li><a href="http://localhost:8081/individual-form">INDIVIDUAL FORM</a></li>
+            <li><router-link to="/product">AUCTION</router-link></li>
+            <li><router-link to="/contact-support">CONTACT</router-link></li>
+            <li><router-link to="/account-setup">LOGIN</router-link></li>
+            <li><router-link to="/works">How It Works</router-link></li>
 
             </ul>
         </nav>
