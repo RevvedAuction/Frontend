@@ -1,8 +1,3 @@
-<!-- 
-author: Esihle Mlinjana
-student: 222441712 
--->
-
 <template>
   <div class="car-management">
     <h1>Car Management</h1>

@@ -7,10 +7,11 @@
       </header>
       <nav class="nav-menu">
         <ul>
-          <li><router-link to="/product">AUCTION</router-link></li>
-          <li><router-link to="/contact-support">CONTACT</router-link></li>
-          <li v-if="!isLoggedIn"><router-link to="/account-setup">LOGIN</router-link></li>
-          <li v-else><a @click="logout">LOGOUT</a></li>
+<li><a href="/product">PRODUCTS</a></li>
+<li><a href="/session">AUCTION</a></li>
+<li>CONTACT</li>
+<li><a href="/account-setup">LOGIN</a></li>
+
         </ul>
       </nav>
     </div>
