@@ -7,10 +7,9 @@
       </header>
       <nav class="nav-menu">
         <ul>
-          <li><a href="/product">PRODUCTS</a></li>
-          <li><a href="/session">AUCTION</a></li>
-          <li>CONTACT</li>
-          <li><a href="/account-setup">LOGIN</a></li>
+            <li><router-link to="/product">AUCTION</router-link></li>
+            <li><router-link to="/contact-support">CONTACT</router-link></li>
+            <li><router-link to="/account-setup">LOGIN</router-link></li>
         </ul>
       </nav>
     </div>
@@ -166,7 +165,7 @@ export default {
 <style scoped>
 .car-page {
   font-family: 'Montserrat', sans-serif;
-  background: #f8f9fb;
+  background: linear-gradient(#b99976, #000000);;
   min-height: 100vh;
   padding: 20px;
 }
