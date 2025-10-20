@@ -2,7 +2,11 @@
   <div class="how-it-works-container">
     <h1>How It Works</h1>
     <p class="intro">
+
+      Welcome to our platform! Here’s a simple breakdown of how everything works:
+
       From dream to driveway in just a few simple steps.
+
     </p>
 
     <div class="steps">
@@ -12,9 +16,11 @@
       </div>
     </div>
 
+
     <div class="contact-button-container">
       <router-link to="/contact-support" class="contact-button">Contact Us for More Information</router-link>
     </div>
+
   </div>
 </template>
 
@@ -30,6 +36,21 @@ export default {
             "Create an account to get started or log in if you already have one.",
         },
         {
+
+          title: "2. Browse Features",
+          description:
+            "Explore all our tools and services designed to make your experience seamless.",
+        },
+        {
+          title: "3. Manage Your Account",
+          description:
+            "Easily edit your profile, update settings, and access your personalized dashboard.",
+        },
+        {
+          title: "4. Get Support",
+          description:
+            "If you need assistance, our support team is always here to help you.",
+
           title: "2. Browse Cars",
           description:
             "Browse through our collection of luxury vehicle",
@@ -43,6 +64,7 @@ export default {
           title: "4. Win & Drive",
           description:
             "Win the auction,complete payment and we'll deliver your dream car to your doorstep.",
+
         },
       ],
     };
@@ -99,6 +121,9 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
+</style>
+
+
 /* Added button styles */
 .contact-button-container {
   text-align: center;
@@ -121,3 +146,4 @@ h1 {
   transform: scale(1.05);
 }
 </style>
+

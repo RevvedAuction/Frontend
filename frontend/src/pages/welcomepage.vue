@@ -12,7 +12,10 @@
             <li><router-link to="/product">AUCTION</router-link></li>
             <li><router-link to="/contact-support">CONTACT</router-link></li>
             <li><router-link to="/account-setup">LOGIN</router-link></li>
-            <li><router-link to="/works">HOW IT WORKS</router-link></li>
+
+            <li><router-link to="/works">How It Works</router-link></li>
+
+
 
             </ul>
         </nav>

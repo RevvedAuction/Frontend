@@ -6,6 +6,8 @@ student: 230426271
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <div class="login-background">
+
+
     <div class="container" :class="{ active: isActive }" ref="container">
 
       <!-- Sign Up -->
@@ -58,6 +60,7 @@ student: 230426271
           <div class="toggle-panel toggle-left">
             <div class="home-button-left">
               <a href="http://localhost:8081/welcome">REVVED AUCTION</a>
+
             </div>
             <h1 class="toggle-title">Hey, New Comer!</h1>
             <p>Welcome to Revved Auction. The place where you can find your dream car!</p>
@@ -68,6 +71,18 @@ student: 230426271
             <div class="home-button-right">
               <a href="http://localhost:8081/welcome">REVVED AUCTION</a>
             </div>
+
+            </div>
+            <h1 class="toggle-title">Hey, New Comer!</h1>
+            <p>Welcome to Revved Auction. The place where you can find your dream car!</p>
+            <span>Already a member? Please login:</span>
+            <button class="sign-in-button" type="button" @click="toggleActive">Login</button>
+          </div>
+          <div class="toggle-panel toggle-right">
+            <div class="home-button-right">
+              <a href="http://localhost:8081/welcome">REVVED AUCTION</a>
+            </div>
+
             <h1 class="toggle-title">Welcome Back!</h1>
             <p>So glad to have you back. We have cars to auction and more features for you!</p>
             <span>Are you new? Please create an account:</span>
@@ -590,5 +605,7 @@ export default {
     background-color: #ffffff;
     transform: scale(1.1);
 }
+
+</style>
 
 </style>
