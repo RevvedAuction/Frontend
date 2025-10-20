@@ -1,23 +1,55 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/api/bids';
+const API_BASE_URL = 'http://localhost:8080';
 
-class BidService {
-    createBid(bid) {
-        return axios.post(`${API_BASE_URL}/create`, bid);
+const apiClient = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  }
+});
+
+export default {
+  /**
+   * Place a new bid
+   */
+  async placeBid(bidData) {
+    try {
+      const response = await apiClient.post('/bids/create', bidData);
+      return response.data;
+    } catch (error) {
+      console.error('Error placing bid:', error.response?.data || error.message);
+      throw error;
     }
+  },
+  
 
-    readBid(bidId) {
-        return axios.get(`${API_BASE_URL}/read/${bidId}`);
+  /**
+   * Fetch highest bid for a car
+   */
+  async getHighestBid(carVIN) {
+    try {
+      const response = await apiClient.get(`/bids/car/${carVIN}/highest`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching highest bid:', error.message);
+      // Return null if endpoint doesn't exist yet
+      return null;
     }
+  },
 
-    updateBid(bid) {
-        return axios.put(`${API_BASE_URL}/update`, bid);
+  /**
+   * Fetch all bids for a specific car
+   */
+  async getBidsForCar(carVIN) {
+    try {
+      const response = await apiClient.get(`/bids/car/${carVIN}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching bids for car:', error.message);
+      // Return empty array if endpoint doesn't exist yet
+      return [];
     }
-
-    getBids() {
-        return axios.get(`${API_BASE_URL}/getall`); 
-    }
-}
-
-export default new BidService();
+  }
+};
