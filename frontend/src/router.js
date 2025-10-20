@@ -10,7 +10,12 @@ const CarDetails = () => import('./pages/CarDetailsPage.vue');
 const AuctionHistory = () => import('./pages/AuctionHistory.vue');
 const AdminPage = () => import('./pages/Admin.vue');
 const AdminManagement = () => import('./pages/ManageAdmins.vue');
+
 const CarAdminPage = () => import('./pages/CarAdmin.vue'); 
+
+const CarAdminPage = () => import('./pages/CarAdmin.vue');
+const BidManagement = () => import('./pages/BidManagement.vue');
+
 
 const routes = [
     { path: '/', redirect: '/welcome' },
@@ -30,7 +35,11 @@ const routes = [
     { path: '/auction-history', component: AuctionHistory, meta: { auth: true } },
     { path: '/admin', component: AdminPage, meta: { auth: true } },
     { path: '/admin-management', component: AdminManagement, meta: { auth: true } },
-    { path: '/car-management', component: CarAdminPage, meta: { auth: true } }, 
+
+
+    { path: '/car-management', component: CarAdminPage, meta: { auth: true } },
+    { path: '/bid-management', component: BidManagement, meta: { auth: true } }
+
 ];
 
 const router = createRouter({

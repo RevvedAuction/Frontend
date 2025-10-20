@@ -17,6 +17,7 @@
         </nav>
       </div>
 
+
       <section class="product-listing">
         <h2>Available Cars for Auction</h2>
         <div v-if="loading" class="loading">Loading cars...</div>
@@ -60,7 +61,7 @@
                 </span>
               </p>
 
-<<<<<<< HEAD
+
               <div class="car-actions">
                 <button class="btn-bid" @click="placeBid(car)">Place Bid</button>
                 <button class="btn-details" @click="$router.push({ name: 'cardetails', params: { vin: car.carVIN } })">
@@ -69,7 +70,7 @@
               </div>
             </div>
           </div>
-=======
+
     <!-- Buttons -->
     <div class="car-actions">
       <button class="btn-bid"><a class="btn-bid" href="http://localhost:8081/account-setup">Place Bid</a></button>
@@ -77,9 +78,64 @@
     </div>
   </div>
 </div>
->>>>>>> 2739d0b (Modified Account SetUp)
+
         </div>
       </section>
+
+<section class="product-listing">
+  <h2>Available Cars for Auction</h2>
+  <div v-if="loading" class="loading">Loading cars...</div>
+  <div v-else-if="cars.length === 0" class="empty-message">
+    No cars currently available for auction
+  </div>
+  <div class="car-grid">
+    <div class="car-card" v-for="car in cars" :key="car.carVIN">
+      <img
+        :src="car.mediaBase64 ? car.mediaBase64 : placeholderImage"
+        alt="Car Image"
+        class="car-image"
+      />
+
+      <div class="car-details">
+        <div class="car-title">{{ car.carModel }}</div>
+        <p class="car-info-sub">{{ car.carYear }} {{ car.carMake }}, Mileage of {{ car.carMileage.toLocaleString() }}km</p>
+        <p class="car-location">
+          <i class="fas fa-map-marker-alt"> Cpt, sa </i>
+          <span class="status">{{ car.carStatus }}</span>
+        </p>
+        <p class="car-info">Current Bid<strong class="bid"> R{{ car.currentBid?.toLocaleString() || '0' }}</strong></p>
+        <hr class="styled-line" />
+        <p class="car-info-time">Time left:</p>
+        <p class="countdown" :class="{ 'ended': car.remainingTime <= 0 }">
+          <span>
+            <div class="value">{{ Math.floor(car.remainingTime / (1000 * 3600 * 24)) }}</div>
+            <div class="label">Days</div>
+          </span>
+          <span>
+            <div class="value">{{ Math.floor((car.remainingTime / (1000 * 3600)) % 24) }}</div>
+            <div class="label">Hours</div>
+          </span>
+          <span>
+            <div class="value">{{ Math.floor((car.remainingTime / (1000 * 60)) % 60) }}</div>
+            <div class="label">Minutes</div>
+          </span>
+          <span>
+            <div class="value">{{ Math.floor((car.remainingTime / 1000) % 60) }}</div>
+            <div class="label">Seconds</div>
+          </span>
+        </p>
+
+        <div class="car-actions">
+          <button class="btn-bid" @click="placeBid(car)">Place Bid</button>
+          <button class="btn-details" @click="$router.push({ name: 'cardetails', params: { vin: car.carVIN } })">
+            View Details
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
     </div>
   </div>
 </template>
