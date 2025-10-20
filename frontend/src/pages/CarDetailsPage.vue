@@ -668,6 +668,7 @@ export default {
     padding: 20px;
   }
   
+  
   .top-bar {
     flex-direction: column;
     gap: 15px;

@@ -23,6 +23,7 @@ export default {
       throw error;
     }
   },
+  
 
   /**
    * Fetch highest bid for a car
