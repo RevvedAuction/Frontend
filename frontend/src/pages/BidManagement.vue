@@ -1,7 +1,7 @@
 <script>
 import BidService from "@/services/BidService";
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
+
   name: "BidManagement",  // Only changed this line
   data() {
     return {
@@ -152,7 +152,6 @@ export default {
         </div>
       </div>
     </div>
-
     <div v-if="filteredBids.length > 0" class="row">
       <div class="col-md-6" v-for="bid in filteredBids" :key="bid.bidId">
         <div class="card mb-4">

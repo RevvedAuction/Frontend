@@ -11,9 +11,7 @@ const apiClient = axios.create({
 });
 
 export default {
-  /**
-   * Place a new bid
-   */
+   
   async placeBid(bidData) {
     try {
       const response = await apiClient.post('/bids/create', bidData);
